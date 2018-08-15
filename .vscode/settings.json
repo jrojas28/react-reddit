@@ -3,4 +3,5 @@
     "editor.insertSpaces": true,
     "editor.detectIndentation": false,
     "files.eol": "\n",
+    "easysass.compileAfterSave": false,
 }
