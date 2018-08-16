@@ -25,8 +25,16 @@ html {
 
 @import "mixins/bootstrap-breakpoints";
 @import "mixins/bootstrap-grid-framework";
+@import "mixins/bootstrap-hover";
+@import "mixins/bootstrap-text-emphasis";
+@import "mixins/bootstrap-text-hide";
+@import "mixins/bootstrap-text-truncate";
 @import "mixins/bootstrap-grid";
 
 @import "bootstrap-base-grid";
 @import "utilities/bootstrap-display";
 @import "utilities/bootstrap-flex";
+@import "utilities/bootstrap-text";
+@import "utilities/bootstrap-sizing";
+@import "utilities/bootstrap-spacing";
+@import "utilities/bootstrap-position";
