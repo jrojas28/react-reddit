@@ -5,7 +5,8 @@
         "babel"
     ],
     "env": {
-        "browser": true
+        "browser": true,
+        "jest": true
     },
     "rules": {
         "linebreak-style": 0,
