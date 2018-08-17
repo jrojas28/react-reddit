@@ -6,6 +6,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 
 import getLogger from '../util/log';
+import GqlServer from '../gql/index';
 import frontEndRouter from '../routes/front-end';
 
 const app = express();
@@ -13,6 +14,8 @@ const log = getLogger('server');
 
 app.use(bodyParser.json());
 app.use(express.static('./'));
+
+GqlServer.applyMiddleware({ app });
 
 /**
  * Routers:
@@ -29,5 +32,6 @@ export default () => {
 
   app.listen(port, () => {
     log.info(`Server initialized on port: ${port}`);
+    log.info(`GQL running at: ${GqlServer.graphqlPath}`);
   });
 };
