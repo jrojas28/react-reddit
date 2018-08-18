@@ -14,6 +14,10 @@ const customFormat = printf((info) => {
   return `${info.timestamp} [${info.label}] ${info.level}: ${info.message}`;
 });
 
+/**
+ * Returns a logger to be used on the back-end.
+ * @param {String} name Name of the logger
+ */
 const getLogger = (name) => {
   const logger = createLogger({
     format: combine(
