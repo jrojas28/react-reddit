@@ -19,19 +19,18 @@ const buttonTypes = [
 class Button extends Component {
   static propTypes = {
     buttonType: PropTypes.oneOf(buttonTypes).isRequired,
-    className: PropTypes.string,
     children: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.node,
       PropTypes.instanceOf(Component),
-    ]),
+    ]).isRequired,
+    className: PropTypes.string,
     href: PropTypes.string,
     to: PropTypes.string,
   };
 
   static defaultProps = {
     buttonType: 'primary',
-    children: 'Click Me!',
   };
 
   render() {
