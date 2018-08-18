@@ -1,10 +1,22 @@
 /**
  * @file User model type definition
  */
-import { GraphQLObjectType } from 'graphql';
+import { GraphQLObjectType, GraphQLString, GraphQLInt } from 'graphql';
 
-const UserType = new GraphQLObjectType({
-
+export const UserType = new GraphQLObjectType({
+  name: 'user',
+  description: 'Single user item',
+  fields: {
+    id: {
+      type: GraphQLInt,
+    },
+    name: {
+      type: GraphQLString,
+    },
+    email: {
+      type: GraphQLString,
+    },
+  },
 });
 
 export default UserType;
