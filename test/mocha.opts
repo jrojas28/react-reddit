@@ -1,0 +1,2 @@
+--require src/back/tests/index.js
+--timeout 4000
