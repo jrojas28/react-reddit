@@ -1,7 +1,7 @@
 /**
  * @file User model type definition
  */
-import { GraphQLObjectType, GraphQLString } from 'graphql';
+import { GraphQLObjectType, GraphQLString, GraphQLNonNull } from 'graphql';
 import { RecordID } from '../global/types';
 
 export const UserType = new GraphQLObjectType({
@@ -18,7 +18,7 @@ export const UserType = new GraphQLObjectType({
       type: GraphQLString,
     },
     username: {
-      type: GraphQLString,
+      type: new GraphQLNonNull(GraphQLString),
     },
   },
 });

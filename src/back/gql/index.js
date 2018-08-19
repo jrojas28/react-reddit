@@ -7,4 +7,11 @@ const schema = new GraphQLSchema({
   query,
 });
 
-export default new ApolloServer({ schema });
+export default new ApolloServer({
+  schema,
+  playground: {
+    settings: {
+      'editor.cursorShape': 'line',
+    },
+  },
+});
