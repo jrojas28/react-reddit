@@ -1,7 +1,13 @@
 /**
  * @file Global types.
  */
-import { GraphQLInputObjectType, GraphQLInt } from 'graphql';
+import {
+  GraphQLInputObjectType,
+  GraphQLInt,
+  GraphQLScalarType,
+  Kind,
+  GraphQLNonNull,
+} from 'graphql';
 
 /**
  * Slice arguments type. Serves the purpose of pagination
@@ -21,3 +27,24 @@ export const SliceArgsType = new GraphQLInputObjectType({
     },
   },
 });
+
+/**
+ * Unsigned int GQL type.
+ */
+export const UInt = new GraphQLScalarType({
+  name: 'UInt',
+  serialize: value => value && value >= 0 ? value : null,
+  parseValue: value => value && value >= 0 ? value : null,
+  parseLiteral: (ast) => {
+    if (ast.kind === Kind.INT) {
+      return parseInt(ast.value, 10) >= 0 || null;
+    }
+    return null;
+  },
+});
+
+/**
+ * Record ID items.
+ */
+export const RecordID = new GraphQLNonNull(UInt);
+

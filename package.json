@@ -9,7 +9,7 @@
     "server:build": "webpack --config config/webpack/webpack.server.config.js --progress",
     "server:watch": "webpack --watch --config config/webpack/webpack.server.config.js --progress",
     "server:run": "nodemon dist/server.bundle.js",
-    "server:test": "mocha --compilers js:babel-register --require babel-core/register \"./src/back/tests/**/*.test.js\"",
+    "server:test": "mocha --exit --require babel-core/register \"./src/back/tests/**/*.test.js\"",
     "server": "concurrently --kill-others \"yarn run server:watch\" \"yarn run server:run\""
   },
   "license": "MIT",
