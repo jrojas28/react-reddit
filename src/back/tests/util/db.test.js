@@ -42,7 +42,7 @@ describe('(util) db.js Utility', () => {
       add('users');
       expect(Database.users.length).to.equal(0);
 
-      add(null, { id: 'some-elem '});
+      add(null, { id: 'some-elem ' });
       const keys = Object.keys(Database);
       keys.forEach(key => expect(Database[key].length).to.equal(0));
     });

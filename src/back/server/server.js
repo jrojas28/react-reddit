@@ -27,7 +27,7 @@ app.use(frontEndRouter);
  */
 app.get('/health-check', (req, res) => res.json({ healthy: true }));
 
-export default () => {
+export default async () => {
   const port = config.get('server.port');
 
   app.listen(port, () => {
