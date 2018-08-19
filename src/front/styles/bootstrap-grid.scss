@@ -31,10 +31,17 @@ html {
 @import "mixins/bootstrap-text-truncate";
 @import "mixins/bootstrap-grid";
 
-@import "bootstrap-base-grid";
+@import "mixins/bootstrap-gradients";
+@import "mixins/bootstrap-buttons";
+@import "mixins/bootstrap-box-shadow";
+@import "mixins/bootstrap-transition";
+
 @import "utilities/bootstrap-display";
 @import "utilities/bootstrap-flex";
 @import "utilities/bootstrap-text";
 @import "utilities/bootstrap-sizing";
 @import "utilities/bootstrap-spacing";
 @import "utilities/bootstrap-position";
+
+@import "bootstrap-buttons";
+@import "bootstrap-base-grid";
