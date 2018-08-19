@@ -1,8 +1,12 @@
 /**
- * @file Helper to handle generated data as constants.
+ * @file Helper to handle generated in-memory datatabse.
  */
 import { generateUserBase } from './user';
 
+/**
+ * The database object. Each key here represents
+ * a table
+ */
 const Database = {
   users: generateUserBase(),
 };
@@ -19,31 +23,31 @@ export const clear = () => {
 
 /**
  * Adds an element to the Database object.
- * @param {String} key The database name in which the element will be added
+ * @param {String} table The database table name in which the element will be added
  * @param {*} elem Element to be added.
  */
-export const add = (key, elem) => {
-  if (!key || !elem || !Database[key]) {
+export const add = (table, elem) => {
+  if (!table || !elem || !Database[table]) {
     return; // nothing to do. Won't add anything.
   }
 
-  Database[key] = [
-    ...Database[key],
+  Database[table] = [
+    ...Database[table],
     elem,
   ];
 };
 
 /**
  * Removes an element by ID
- * @param {string} key The database name in which the element will be removed.
+ * @param {string} table The database name in which the element will be removed.
  * @param {number} id ID of the element to be removed
  */
-export const removeById = (key, id) => {
-  if (!key || typeof id === 'undefined' || !Database[key]) {
+export const removeById = (table, id) => {
+  if (!table || typeof id === 'undefined' || !Database[table]) {
     return;
   }
 
-  Database[key] = Database[key].filter(elem => elem.id !== id);
+  Database[table] = Database[table].filter(elem => elem.id !== id);
 };
 
 export default Database;
