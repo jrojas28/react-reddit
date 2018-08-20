@@ -1,7 +1,12 @@
 /**
  * @file User model type definition
  */
-import { GraphQLObjectType, GraphQLString, GraphQLNonNull } from 'graphql';
+import {
+  GraphQLObjectType,
+  GraphQLString,
+  GraphQLNonNull,
+  GraphQLInputObjectType,
+} from 'graphql';
 import { RecordID } from '../global/types';
 
 export const UserType = new GraphQLObjectType({
@@ -18,6 +23,22 @@ export const UserType = new GraphQLObjectType({
       type: GraphQLString,
     },
     username: {
+      type: new GraphQLNonNull(GraphQLString),
+    },
+  },
+});
+
+export const CreateUserInputType = new GraphQLInputObjectType({
+  name: 'CreateUserInputType',
+  description: 'Input needed to create an User record',
+  fields: {
+    username: {
+      type: new GraphQLNonNull(GraphQLString),
+    },
+    name: {
+      type: new GraphQLNonNull(GraphQLString),
+    },
+    email: {
       type: new GraphQLNonNull(GraphQLString),
     },
   },

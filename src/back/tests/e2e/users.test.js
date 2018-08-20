@@ -6,6 +6,7 @@ import { expect } from 'chai';
 import testLib from '../lib/test.lib';
 import gqlClient from '../lib/gqlClient.lib';
 import { queryAllUsers, querySingleUser } from '../queries/users';
+import { createUserMutation } from '../mutations/users';
 
 // init:
 testLib();
@@ -45,6 +46,24 @@ describe('User end-points', () => {
       });
 
       expect(user.id).to.equal(1);
+    });
+  });
+
+  describe('Create User Mutation', () => {
+    it('creates user when given proper input', async () => {
+      const { data: { data: { createUser: user } } } = await gqlClient.query(createUserMutation, {
+        variables: {
+          input: {
+            username: 'lrojas',
+            name: 'Luis',
+            email: 'lrojas94@gmail.com',
+          },
+        },
+      });
+
+      expect(user.name).to.equal('Luis');
+      expect(user.username).to.equal('lrojas');
+      expect(user.email).to.equal('lrojas94@gmail.com');
     });
   });
 });
