@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const classNames = require('classnames');
 
-const inputTypes = [
+const types = [
   // Input Based
   'text',
   'email',
@@ -24,9 +24,9 @@ const inputTypes = [
 
 class Input extends Component {
   static propTypes = {
-    inputType: PropTypes.oneOf(inputTypes).isRequired,
-    name: PropTypes.string.isRequired,
-    id: PropTypes.string,
+    type: PropTypes.oneOf(types).isRequired,
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string,
     className: PropTypes.string,
     children: PropTypes.oneOfType([
       PropTypes.string,
@@ -37,14 +37,14 @@ class Input extends Component {
   };
 
   static defaultProps = {
-    inputType: 'text',
+    type: 'text',
   };
 
   render() {
     const {
-      inputType,
-      name,
+      type,
       id,
+      name,
       className,
       children,
       rowCount,
@@ -52,28 +52,27 @@ class Input extends Component {
     } = this.props;
 
     const inputClass = classNames({
-      'form-control': inputType !== 'file',
-      'form-control-file': inputType === 'file',
+      'form-control': type !== 'file',
+      'form-control-file': type === 'file',
       [className]: !!className,
     });
 
-    if (inputType === 'select' || children) {
-      return (
-        <select name={name} className={inputClass} {...props}>
-          {children}
-        </select>
-      );
+    switch (type) {
+      case 'select':
+        return (
+          <select id={id} className={inputClass} {...props}>
+            {children}
+          </select>
+        );
+      case 'textarea':
+        return (
+          <textarea id={id} name={name || id} className={inputClass} {...props} />
+        );
+      default:
+        return (
+          <input id={id} name={name || id} type={type} className={inputClass} {...props} />
+        );
     }
-
-    if (inputType === 'textarea' || rowCount) {
-      return (
-        <textarea id={id || `#${name}`} name={name} className={inputClass} rows={rowCount} {...props} />
-      );
-    }
-
-    return (
-      <input id={id || `#${name}`} name={name} type={inputType} className={inputClass} {...props} />
-    );
   }
 }
 
