@@ -31,6 +31,9 @@ html {
 @import "mixins/bootstrap-text-truncate";
 @import "mixins/bootstrap-grid";
 
+@import "mixins/bootstrap-forms";
+
+@import "mixins/bootstrap-border-radius";
 @import "mixins/bootstrap-gradients";
 @import "mixins/bootstrap-buttons";
 @import "mixins/bootstrap-box-shadow";
@@ -43,5 +46,6 @@ html {
 @import "utilities/bootstrap-spacing";
 @import "utilities/bootstrap-position";
 
+@import "bootstrap-forms";
 @import "bootstrap-buttons";
 @import "bootstrap-base-grid";
