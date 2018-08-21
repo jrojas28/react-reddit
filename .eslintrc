@@ -6,7 +6,8 @@
     ],
     "env": {
         "browser": true,
-        "jest": true
+        "jest": true,
+        "mocha": true
     },
     "rules": {
         "linebreak-style": 0,
