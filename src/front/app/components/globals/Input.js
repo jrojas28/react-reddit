@@ -33,7 +33,6 @@ class Input extends Component {
       PropTypes.node,
       PropTypes.instanceOf(Component),
     ]),
-    rowCount: PropTypes.number,
   };
 
   static defaultProps = {
@@ -47,7 +46,6 @@ class Input extends Component {
       name,
       className,
       children,
-      rowCount,
       ...props
     } = this.props;
 
