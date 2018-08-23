@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
+import SampleListUsersContainer from '../../containers/SampleListUsersContainer';
 
 class App extends Component {
   render() {
     return (
       <div>
-        <h1>React Reddit</h1>
+        <SampleListUsersContainer />
       </div>
     );
   }

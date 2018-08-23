@@ -14,12 +14,12 @@ router.get('*', (req, res) => {
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>My React App</title>
-    </head>
-    <body>
-        <script>
+        <title>React Reddit</title>
+        <script type="text/javascript">
           window.__CONFIG__ = ${JSON.stringify(frontEndConfig())}
         </script>
+    </head>
+    <body>
         <div id="app"></div>
         <script type="text/javascript" src="dist/reddit.bundle.js"></script>
     </body>

@@ -4,8 +4,9 @@
   "description": "A Reddit clone based on React.",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --config config/webpack/webpack.front.config.js --mode development",
+    "start": "concurrently --kill-others \"yarn run server\" \"yarn run front:watch\"",
     "build": "webpack --config config/webpack/webpack.front.config.js --progress",
+    "front:watch": "webpack --config config/webpack/webpack.front.config.js --progress --watch",
     "front:test": "jest",
     "server:build": "webpack --config config/webpack/webpack.server.config.js --progress",
     "server:watch": "webpack --watch --config config/webpack/webpack.server.config.js --progress",
@@ -26,6 +27,7 @@
     "express": "^4.16.3",
     "faker": "^4.1.0",
     "graphql": "^0.13.2",
+    "graphql-tag": "^2.9.2",
     "prop-types": "^15.6.2",
     "react": "^16.4.2",
     "react-apollo": "^2.1.11",

@@ -22,9 +22,13 @@ export const getSliceArgs = () => {
  * @param {Array} list List to be sliced
  * @param {Object} slice Parameters for slicing, expecting limit & offset.
  */
-export const getSlicedList = (list, slice = {}) => {
+export const getSlicedList = (list, slice) => {
+  if (!slice) {
+    return [...list];
+  }
+
   const {
-    offset,
+    offset = 0,
     limit = 25,
   } = slice;
 
