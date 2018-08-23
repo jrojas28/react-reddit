@@ -1,14 +1,19 @@
 /**
- * @file Helper to handle generated in-memory datatabse.
+ * @file Helper to handle generated in-memory database.
  */
-import { generateUserBase } from './user';
-
 /**
  * The database object. Each key here represents
  * a table
  */
 const Database = {
-  users: generateUserBase(),
+  users: [],
+};
+
+/**
+ * Stores the last given ID to the user
+ */
+const IDRecords = {
+  users: 0,
 };
 
 /**
@@ -18,6 +23,7 @@ export const clear = () => {
   const keys = Object.keys(Database);
   keys.forEach((key) => {
     Database[key] = [];
+    IDRecords[key] = 0;
   });
 };
 
@@ -48,6 +54,15 @@ export const removeById = (table, id) => {
   }
 
   Database[table] = Database[table].filter(elem => elem.id !== id);
+};
+
+/**
+ * Gets a new, unique, ID for a given table.
+ * @param {String} table The database name to which the ID is looked for.
+ */
+export const getIdForTable = (table) => {
+  IDRecords[table] += 1;
+  return IDRecords[table];
 };
 
 export default Database;

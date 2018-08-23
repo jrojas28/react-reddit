@@ -8,6 +8,7 @@ import bodyParser from 'body-parser';
 import getLogger from '../util/log';
 import GqlServer from '../gql/index';
 import frontEndRouter from '../routes/front-end';
+import boot from '../util/boot';
 
 const app = express();
 const log = getLogger('server');
@@ -28,6 +29,7 @@ app.use(frontEndRouter);
 app.get('/health-check', (req, res) => res.json({ healthy: true }));
 
 export default async () => {
+  boot();
   const port = config.get('server.port');
 
   app.listen(port, () => {
