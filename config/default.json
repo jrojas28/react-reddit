@@ -1,4 +1,5 @@
 {
+  "baseUrl": "http://localhost:3007/",
   "server": {
     "port": 3007
   }
