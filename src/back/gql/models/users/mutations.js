@@ -20,6 +20,10 @@ export const CreateUserMutation = {
   resolve: (src, {
     input,
   }) => {
+    if (input.password !== input.passwordConfirm) {
+      throw new Error('Passwords do not match');
+    }
+
     const user = generateUser(input);
     add('users', user);
 

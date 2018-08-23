@@ -41,6 +41,12 @@ export const CreateUserInputType = new GraphQLInputObjectType({
     email: {
       type: new GraphQLNonNull(GraphQLString),
     },
+    password: {
+      type: new GraphQLNonNull(GraphQLString),
+    },
+    passwordConfirm: {
+      type: new GraphQLNonNull(GraphQLString),
+    },
   },
 });
 

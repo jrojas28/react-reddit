@@ -49,7 +49,7 @@ describe('User end-points', () => {
     });
   });
 
-  describe('Create User Mutation', () => {
+  describe('Mutation Create User', () => {
     it('creates user when given proper input', async () => {
       const { data: { data: { createUser: user } } } = await gqlClient.query(createUserMutation, {
         variables: {
