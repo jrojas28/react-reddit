@@ -1,10 +1,17 @@
 const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
-  entry: path.resolve(__dirname, '../../src/front/index.js'),
+  mode: 'development',
+  entry: {
+    app: [
+      'webpack-hot-middleware/client',
+      './src/front/index.js',
+    ],
+  },
   output: {
-    path: path.resolve(__dirname, '../../dist'),
-    publicPath: 'dist',
+    path: path.join(__dirname, '../../dist'),
+    publicPath: path.join(__dirname, '../../dist'),
     filename: 'reddit.bundle.js',
   },
   module: {
@@ -28,5 +35,8 @@ module.exports = {
       },
     ],
   },
-  devtool: 'source-map',
+  devtool: 'inline-source-map',
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+  ],
 };

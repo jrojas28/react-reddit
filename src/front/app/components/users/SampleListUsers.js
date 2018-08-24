@@ -28,13 +28,16 @@ class SampleListUsers extends Component {
     }
 
     return (
-      <ul>
-        {users.map(user => (
-          <li key={user.id}>
-            {user.username}
-          </li>
-        ))}
-      </ul>
+      <div>
+        <h1>First few users in DB: </h1>
+        <ul>
+          {users.map(user => (
+            <li key={user.id}>
+              {user.username}
+            </li>
+          ))}
+        </ul>
+      </div>
     );
   }
 }

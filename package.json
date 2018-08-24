@@ -4,15 +4,14 @@
   "description": "A Reddit clone based on React.",
   "main": "index.js",
   "scripts": {
-    "start": "concurrently --kill-others \"yarn run server\" \"yarn run front:watch\"",
+    "start": "yarn run server:build && yarn run server:run",
     "build": "webpack --config config/webpack/webpack.front.config.js --progress",
     "front:watch": "webpack --config config/webpack/webpack.front.config.js --progress --watch",
     "front:test": "jest",
     "server:build": "webpack --config config/webpack/webpack.server.config.js --progress",
     "server:watch": "webpack --watch --config config/webpack/webpack.server.config.js --progress",
-    "server:run": "nodemon dist/server.bundle.js",
+    "server:run": "node dist/server.bundle.js",
     "server:test": "mocha --exit --require babel-core/register \"./src/back/tests/**/*.test.js\"",
-    "server": "concurrently --kill-others \"yarn run server:watch\" \"yarn run server:run\"",
     "test": "yarn run front:test && yarn run server:test"
   },
   "license": "MIT",
@@ -32,6 +31,7 @@
     "react": "^16.4.2",
     "react-apollo": "^2.1.11",
     "react-dom": "^16.4.2",
+    "react-hot-loader": "^4.3.5",
     "react-router-dom": "^4.3.1",
     "winston": "^3.0.0"
   },
@@ -65,7 +65,9 @@
     "style-loader": "^0.22.1",
     "webpack": "^4.16.5",
     "webpack-cli": "^3.1.0",
+    "webpack-dev-middleware": "^3.2.0",
     "webpack-dev-server": "^3.1.5",
+    "webpack-hot-middleware": "^2.22.3",
     "webpack-node-externals": "^1.7.2"
   }
 }

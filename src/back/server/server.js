@@ -9,9 +9,13 @@ import getLogger from '../util/log';
 import GqlServer from '../gql/index';
 import frontEndRouter from '../routes/front-end';
 import boot from '../util/boot';
+import hotModuleReloading from '../util/hotModuleReloading';
 
 const app = express();
 const log = getLogger('server');
+
+// Hot reloading:
+hotModuleReloading(app);
 
 app.use(bodyParser.json());
 app.use(express.static('./'));
