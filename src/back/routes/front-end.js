@@ -2,6 +2,7 @@
  * @file Front end related routes
  */
 import express from 'express';
+import { frontEndConfig } from '../util/config';
 
 const router = express.Router();
 
@@ -13,7 +14,10 @@ router.get('*', (req, res) => {
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>My React App</title>
+        <title>React Reddit</title>
+        <script type="text/javascript">
+          window.__CONFIG__ = ${JSON.stringify(frontEndConfig())}
+        </script>
     </head>
     <body>
         <div id="app"></div>
