@@ -1,18 +1,15 @@
+/**
+ * @file Webpack production config
+ */
 const path = require('path');
-const webpack = require('webpack');
 
 module.exports = {
-  mode: 'development',
-  entry: {
-    app: [
-      'webpack-hot-middleware/client',
-      './src/front/index.js',
-    ],
-  },
+  mode: 'production',
+  entry: path.join(__dirname, '../../src/front/index.js'),
   output: {
     path: path.join(__dirname, '../../dist'),
     publicPath: path.join(__dirname, '../../dist'),
-    filename: 'reddit.bundle.js',
+    filename: 'app.bundle.js',
   },
   module: {
     rules: [
@@ -36,7 +33,4 @@ module.exports = {
     ],
   },
   devtool: 'inline-source-map',
-  plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-  ],
 };
