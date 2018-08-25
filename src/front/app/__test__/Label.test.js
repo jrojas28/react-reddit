@@ -7,6 +7,7 @@ describe('(Component) Label', () => {
     const wrapper = mount(
       <Label htmlFor="random" />
     );
+
     expect(wrapper.find(Label)).toHaveLength(1);
   });
 
@@ -20,7 +21,6 @@ describe('(Component) Label', () => {
     expect(wrapper.contains(<option value="value">Text</option>)).toBe(true);
   });
 
-
   it('Should render with custom classes', () => {
     const wrapper = render(
       <Label htmlFor="random" className="my-class" />
@@ -28,5 +28,4 @@ describe('(Component) Label', () => {
 
     expect(wrapper.attr('class')).toBe('form-control-label my-class');
   });
-
 });

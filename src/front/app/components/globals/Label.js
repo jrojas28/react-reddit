@@ -18,8 +18,8 @@ class Label extends Component {
     } = this.props;
 
     const labelClasses = classNames({
-    'form-control-label': true,
-    [className]: !!className,
+      'form-control-label': true,
+      [className]: !!className,
     });
 
     return (
