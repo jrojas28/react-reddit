@@ -30,14 +30,14 @@ html {
 @import "mixins/bootstrap-text-hide";
 @import "mixins/bootstrap-text-truncate";
 @import "mixins/bootstrap-grid";
-
 @import "mixins/bootstrap-forms";
-
 @import "mixins/bootstrap-border-radius";
 @import "mixins/bootstrap-gradients";
 @import "mixins/bootstrap-buttons";
 @import "mixins/bootstrap-box-shadow";
 @import "mixins/bootstrap-transition";
+@import "mixins/bootstrap-nav-divider";
+@import "mixins/bootstrap-caret";
 
 @import "utilities/bootstrap-display";
 @import "utilities/bootstrap-flex";
@@ -48,4 +48,5 @@ html {
 
 @import "bootstrap-forms";
 @import "bootstrap-buttons";
+@import "bootstrap-dropdown";
 @import "bootstrap-base-grid";
