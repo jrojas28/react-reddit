@@ -28,4 +28,12 @@ describe('(Component) Label', () => {
 
     expect(wrapper.attr('class')).toBe('form-control-label my-class');
   });
+
+   it('passes down attrs to label', () => {
+    const wrapper = render(
+      <Label htmlFor="random"/>
+    );
+
+    expect(wrapper.attr('for')).toBe('random');
+  });
 });
