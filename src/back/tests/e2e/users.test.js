@@ -81,7 +81,6 @@ describe('User end-points', () => {
             },
           },
         });
-
       } catch (error) {
         expect(error.message).to.equal('passwords do not match');
       }

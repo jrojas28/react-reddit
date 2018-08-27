@@ -13,7 +13,7 @@ describe('(Component) Label', () => {
 
   it('Should render its children', () => {
     const wrapper = shallow(
-      <Label htmlFor="random" >
+      <Label htmlFor="random">
         <option value="value">Text</option>
       </Label>
     );
@@ -29,9 +29,9 @@ describe('(Component) Label', () => {
     expect(wrapper.attr('class')).toBe('form-control-label my-class');
   });
 
-   it('passes down attrs to label', () => {
+  it('passes down attrs to label', () => {
     const wrapper = render(
-      <Label htmlFor="random"/>
+      <Label htmlFor="random" />
     );
 
     expect(wrapper.attr('for')).toBe('random');
