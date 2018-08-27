@@ -12,7 +12,8 @@
     "server:run": "nodemon dist/server.bundle.js",
     "server:test": "mocha --exit --require babel-core/register \"./src/back/tests/**/*.test.js\"",
     "server": "concurrently --kill-others \"yarn run server:watch\" \"yarn run server:run\"",
-    "test": "yarn run front:test && yarn run server:test"
+    "test": "yarn run front:test && yarn run server:test",
+    "eslint": "eslint --ext .js src/"
   },
   "license": "MIT",
   "dependencies": {
