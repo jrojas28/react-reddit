@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 class Label extends Component {
-   static propTypes = {
+  static propTypes = {
     children: PropTypes.element.isRequired,
     className: PropTypes.string,
-    for: PropTypes.string.isRequired
+    htmlFor: PropTypes.string.isRequired,
   };
 
   render() {
@@ -23,7 +23,7 @@ class Label extends Component {
     });
 
     return (
-      <label htmlFor={htmlFor} {...props} className={labelClasses}>
+      <label htmlFor={htmlFor} className={labelClasses} {...props}>
         {children}
       </label>
     );
