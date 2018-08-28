@@ -6,6 +6,15 @@ class App extends Component {
     return (
       <div>
         <h1>React Reddit</h1>
+        <h1>React Reddit</h1>
+        <h1>React Reddit</h1>
+        <h1>React Reddit</h1>
+        <h1>React Reddit</h1>
+        <h1>React Reddit</h1>
+        <h1>React Reddit</h1>
+        <h1>React Reddit</h1>
+        <h1>React Reddit</h1>
+        <h1>React Reddit</h1>
         <Dropdown type="split-button" btnChildren="Click Me!">
           <h4>Hello!</h4>
           <h4>Hello!</h4>
@@ -13,6 +22,17 @@ class App extends Component {
           <h4>Hello!</h4>
           <h4>Hello!</h4>
         </Dropdown>
+        <h1>React Reddit</h1>
+        <h1>React Reddit</h1>
+        <h1>React Reddit</h1>
+        <h1>React Reddit</h1>
+        <h1>React Reddit</h1>
+        <h1>React Reddit</h1>
+        <h1>React Reddit</h1>
+        <h1>React Reddit</h1>
+        <h1>React Reddit</h1>
+        <h1>React Reddit</h1>
+        <h1>React Reddit</h1>
       </div>
     );
   }

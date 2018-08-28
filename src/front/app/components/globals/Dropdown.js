@@ -7,8 +7,14 @@ import Button from './Button';
 const dropdownTypes = [
   'button',
   'split-button',
-  'menu',
 ];
+
+const popperPlacementMap = {
+  bottom: 'down',
+  top: 'up',
+  right: 'right',
+  left: 'left',
+};
 
 class Dropdown extends Component {
   static propTypes = {
@@ -38,18 +44,27 @@ class Dropdown extends Component {
     type: 'button',
     btnChildren: 'Click Me',
     activePlacement: 'bottom',
-    modifiers: {
-      flip: { enabled: false },
-      preventOverflow: { enabled: false },
-      hide: { enabled: false },
-    },
   };
+
+  constructor(props) {
+    super(props);
+    this.handleDropdownButtonClick = this.handleDropdownButtonClick.bind(this);
+  }
+
+  state = {
+    isOpen: false,
+  };
+
+  handleDropdownButtonClick() {
+    this.setState(prevState => ({
+      isOpen: !prevState.isOpen,
+    }));
+  }
 
   render() {
     const {
       type,
       activePlacement,
-      modifiers,
       children,
       className,
       btnProps,
@@ -58,12 +73,19 @@ class Dropdown extends Component {
       splitBtnChildren,
     } = this.props;
 
+    const {
+      isOpen,
+    } = this.state;
+
     const btnGroupClasses = classNames({
       'btn-group': true,
+      [`drop${popperPlacementMap[activePlacement]}`]: !!activePlacement,
+      show: isOpen,
     });
 
     const popperClasses = classNames({
       'dropdown-menu': true,
+      show: isOpen,
       [className]: !!className,
     });
 
@@ -73,92 +95,72 @@ class Dropdown extends Component {
       splitBtnProps.className = 'dropdown-toggle dropdown-toggle-split';
     }
 
-    switch (type) {
-      case 'split-button':
-        return (
-          <Manager>
-            <div className={btnGroupClasses}>
-              <Button {...btnProps}>
-                {btnChildren}
-              </Button>
-              <Reference>
+    return (
+      <div className="dropdown">
+        <Manager>
+          {
+            (type === 'split-button'
+              ? (
+                <div className={btnGroupClasses}>
+                  <Button {...btnProps}>
+                    {btnChildren}
+                  </Button>
+                  <Reference>
+                    {
+                      ({ ref }) => (
+                        <Button
+                          ref={ref}
+                          className={(splitBtnProps && splitBtnProps.className) || 'dropdown-toggle dropdown-toggle-split'}
+                          onClick={this.handleDropdownButtonClick}
+                          {...splitBtnProps}
+                        >
+                          {splitBtnChildren || ''}
+                        </Button>
+                      )
+                    }
+                  </Reference>
+                </div>
+              )
+              : (
+                <div className={btnGroupClasses}>
+                  <Reference>
+                    {
+                      ({ ref }) => (
+                        <Button
+                          ref={ref}
+                          className="dropdown-toggle dropdown-toggle-split"
+                          onClick={this.handleDropdownButtonClick}
+                          {...btnProps}
+                        >
+                          {btnChildren}
+                        </Button>
+                      )
+                    }
+                  </Reference>
+                </div>
+              )
+            )
+          }
+          {
+            isOpen && (
+              <Popper>
                 {
-                  ({ ref }) => (
-                    <Button
-                      innerRef={ref}
-                      className={(splitBtnProps && splitBtnProps.className) || 'dropdown-toggle dropdown-toggle-split'}
-                      {...splitBtnProps}
+                  ({ ref, placement }) => (
+                    <div
+                      ref={ref}
+                      data-placement={placement}
+                      className={popperClasses}
                     >
-                      {splitBtnChildren || ''}
-                    </Button>
+                      {children}
+                    </div>
                   )
                 }
-              </Reference>
-            </div>
-            <Popper placement={activePlacement} {...modifiers}>
-              {
-                ({ ref, placement }) => (
-                  <div
-                    innerRef={ref}
-                    data-placement={placement}
-                    className={popperClasses}
-                  >
-                    {children}
-                  </div>
-                )
-              }
-            </Popper>
-          </Manager>
-        );
-      case 'menu':
-        return (
-          <Manager>
-            <Popper placement={activePlacement} {...modifiers}>
-              {
-                ({ ref, placement }) => (
-                  <div
-                    innerRef={ref}
-                    data-placement={placement}
-                    className={popperClasses}
-                  >
-                    {children}
-                  </div>
-                )
-              }
-            </Popper>
-          </Manager>
-        );
-      case 'button':
-      default:
-        return (
-          <Manager>
-            <div className={btnGroupClasses}>
-              <Reference>
-                {
-                  ({ ref }) => (
-                    <Button innerRef={ref} {...btnProps}>
-                      {btnChildren}
-                    </Button>
-                  )
-                }
-              </Reference>
-            </div>
-            <Popper placement={activePlacement} {...modifiers}>
-              {
-                ({ ref, placement }) => (
-                  <div
-                    innerRef={ref}
-                    data-placement={placement}
-                    className={popperClasses}
-                  >
-                    {children}
-                  </div>
-                )
-              }
-            </Popper>
-          </Manager>
-        );
-    }
+              </Popper>
+            )
+          }
+        </Manager>
+      </div>
+    );
   }
 }
 
