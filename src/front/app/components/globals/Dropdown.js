@@ -4,35 +4,29 @@ import classNames from 'classnames';
 import { Manager, Reference, Popper } from 'react-popper';
 import Button from './Button';
 
-const dropdownTypes = [
-  'button',
-  'split-button',
+const popperPlacements = [
+  'auto',
+  'top',
+  'bottom',
+  'left',
+  'right',
+  'auto-start',
+  'top-start',
+  'bottom-start',
+  'left-start',
+  'right-start',
+  'auto-end',
+  'top-end',
+  'bottom-end',
+  'left-end',
+  'right-end',
 ];
-
-const popperPlacementMap = {
-  bottom: 'down',
-  top: 'up',
-  right: 'right',
-  left: 'left',
-};
 
 class Dropdown extends Component {
   static propTypes = {
-    type: PropTypes.oneOf(dropdownTypes),
-    activePlacement: PropTypes.string,
+    toggler: PropTypes.func,
+    activePlacement: PropTypes.oneOf(popperPlacements),
     className: PropTypes.string,
-    btnProps: PropTypes.object,
-    btnChildren: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.node,
-      PropTypes.instanceOf(Component),
-    ]),
-    splitBtnProps: PropTypes.object,
-    splitBtnChildren: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.node,
-      PropTypes.instanceOf(Component),
-    ]),
     children: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.node,
@@ -41,47 +35,58 @@ class Dropdown extends Component {
   };
 
   static defaultProps = {
-    type: 'button',
-    btnChildren: 'Click Me',
     activePlacement: 'bottom',
-  };
+    toggler: ({
+      ref,
+      isOpen,
+      onClick,
+    }) => {
+      const btnGroupClasses = classNames({
+        'btn-group': true,
+        dropdown: true,
+        show: isOpen,
+      });
 
-  constructor(props) {
-    super(props);
-    this.handleDropdownButtonClick = this.handleDropdownButtonClick.bind(this);
-  }
+      const btnClasses = classNames({
+        'dropdown-toggle': true,
+      });
+
+      return (
+        <div className={btnGroupClasses}>
+          <Button
+            type="primary"
+            className={btnClasses}
+            inputRef={ref}
+            onClick={onClick}
+          >
+            Toggle Dropdown
+          </Button>
+        </div>
+      );
+    },
+  };
 
   state = {
     isOpen: false,
   };
 
-  handleDropdownButtonClick() {
-    this.setState(prevState => ({
-      isOpen: !prevState.isOpen,
+  handleDropdownClick = () => {
+    this.setState(({ isOpen }) => ({
+      isOpen: !isOpen,
     }));
-  }
+  };
 
   render() {
     const {
-      type,
-      activePlacement,
       children,
       className,
-      btnProps,
-      btnChildren,
-      splitBtnProps,
-      splitBtnChildren,
+      toggler,
+      activePlacement,
     } = this.props;
 
     const {
       isOpen,
     } = this.state;
-
-    const btnGroupClasses = classNames({
-      'btn-group': true,
-      [`drop${popperPlacementMap[activePlacement]}`]: !!activePlacement,
-      show: isOpen,
-    });
 
     const popperClasses = classNames({
       'dropdown-menu': true,
@@ -89,69 +94,40 @@ class Dropdown extends Component {
       [className]: !!className,
     });
 
-    if (splitBtnProps && splitBtnProps.className) {
-      splitBtnProps.className += ' dropdown-toggle dropdown-toggle-split';
-    } else if (splitBtnProps) {
-      splitBtnProps.className = 'dropdown-toggle dropdown-toggle-split';
-    }
-
     return (
       <div className="dropdown">
         <Manager>
           {
-            (type === 'split-button'
-              ? (
-                <div className={btnGroupClasses}>
-                  <Button {...btnProps}>
-                    {btnChildren}
-                  </Button>
-                  <Reference>
-                    {
-                      ({ ref }) => (
-                        <Button
-                          ref={ref}
-                          className={(splitBtnProps && splitBtnProps.className) || 'dropdown-toggle dropdown-toggle-split'}
-                          onClick={this.handleDropdownButtonClick}
-                          {...splitBtnProps}
-                        >
-                          {splitBtnChildren || ''}
-                        </Button>
-                      )
-                    }
-                  </Reference>
-                </div>
-              )
-              : (
-                <div className={btnGroupClasses}>
-                  <Reference>
-                    {
-                      ({ ref }) => (
-                        <Button
-                          ref={ref}
-                          className="dropdown-toggle dropdown-toggle-split"
-                          onClick={this.handleDropdownButtonClick}
-                          {...btnProps}
-                        >
-                          {btnChildren}
-                        </Button>
-                      )
-                    }
-                  </Reference>
-                </div>
-              )
-            )
+            <Reference>
+              {
+                ({ ref }) => (
+                  toggler({
+                    ref,
+                    isOpen,
+                    onClick: this.handleDropdownClick,
+                  })
+                )
+              }
+            </Reference>
           }
           {
             isOpen && (
-              <Popper>
+              <Popper placement={activePlacement}>
                 {
-                  ({ ref, placement }) => (
+                  ({
+                    ref,
+                    style,
+                    placement,
+                    arrowProps,
+                  }) => (
                     <div
                       ref={ref}
+                      style={style}
                       data-placement={placement}
                       className={popperClasses}
                     >
                       {children}
+                      <div ref={arrowProps.ref} style={arrowProps.style} />
                     </div>
                   )
                 }
