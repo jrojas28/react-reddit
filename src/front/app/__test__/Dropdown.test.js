@@ -1,6 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { Popper } from 'react-popper';
+
 import Button from '../components/globals/Button';
 import Dropdown from '../components/globals/Dropdown';
 
@@ -25,6 +26,21 @@ describe('(Component) Dropdown', () => {
 
     wrapper.find(Button).simulate('click');
     expect(wrapper.contains(<span>Im a Child</span>)).toBe(true);
+  });
+
+  it('Should stop rendering its children when blured', () => {
+    const wrapper = mount(
+      <div>
+        <Dropdown>
+          <span>Im a Child</span>
+        </Dropdown>
+      </div>
+    );
+
+    wrapper.find(Button).simulate('click');
+    expect(wrapper.contains(<span>Im a Child</span>)).toBe(true);
+    wrapper.find(Button).simulate('blur');
+    expect(wrapper.contains(<span>Im a Child</span>)).toBe(false);
   });
 
   it('Should render custom classes', () => {
@@ -65,10 +81,18 @@ describe('(Component) Dropdown', () => {
           ref,
           activePlacement,
           isOpen,
-          onClick,
+          openDropdown,
+          onBlur,
         }) => (
           <div>
-            <input id="cb" type="checkbox" onClick={onClick} data-placement={activePlacement} ref={ref} />
+            <input
+              id="cb"
+              type="checkbox"
+              onClick={openDropdown}
+              onBlur={onBlur}
+              data-placement={activePlacement}
+              ref={ref}
+            />
             <span>
               {isOpen ? 'Im Open' : 'Im Closed'}
             </span>

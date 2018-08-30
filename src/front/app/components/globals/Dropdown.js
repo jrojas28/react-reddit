@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { Manager, Reference, Popper } from 'react-popper';
+
 import Button from './Button';
 
 const popperPlacements = [
@@ -39,7 +40,8 @@ class Dropdown extends Component {
     toggler: ({
       ref,
       isOpen,
-      onClick,
+      openDropdown,
+      onBlur,
     }) => {
       const btnGroupClasses = classNames({
         'btn-group': true,
@@ -57,7 +59,8 @@ class Dropdown extends Component {
             type="primary"
             className={btnClasses}
             inputRef={ref}
-            onClick={onClick}
+            onClick={openDropdown}
+            onBlur={onBlur}
           >
             Toggle Dropdown
           </Button>
@@ -73,6 +76,12 @@ class Dropdown extends Component {
   handleDropdownClick = () => {
     this.setState(({ isOpen }) => ({
       isOpen: !isOpen,
+    }));
+  };
+
+  handleDropdownBlur = () => {
+    this.setState(() => ({
+      isOpen: false,
     }));
   };
 
@@ -104,7 +113,8 @@ class Dropdown extends Component {
                   toggler({
                     ref,
                     isOpen,
-                    onClick: this.handleDropdownClick,
+                    openDropdown: this.handleDropdownClick,
+                    onBlur: this.handleDropdownBlur,
                   })
                 )
               }
@@ -118,7 +128,6 @@ class Dropdown extends Component {
                     ref,
                     style,
                     placement,
-                    arrowProps,
                   }) => (
                     <div
                       ref={ref}
@@ -127,7 +136,6 @@ class Dropdown extends Component {
                       className={popperClasses}
                     >
                       {children}
-                      <div ref={arrowProps.ref} style={arrowProps.style} />
                     </div>
                   )
                 }
