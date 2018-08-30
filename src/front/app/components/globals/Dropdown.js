@@ -41,7 +41,6 @@ class Dropdown extends Component {
       ref,
       isOpen,
       openDropdown,
-      onBlur,
     }) => {
       const btnGroupClasses = classNames({
         'btn-group': true,
@@ -60,7 +59,6 @@ class Dropdown extends Component {
             className={btnClasses}
             inputRef={ref}
             onClick={openDropdown}
-            onBlur={onBlur}
           >
             Toggle Dropdown
           </Button>
@@ -69,8 +67,24 @@ class Dropdown extends Component {
     },
   };
 
-  state = {
-    isOpen: false,
+  constructor(props) {
+    super(props);
+    this.state = {
+      isOpen: false,
+    };
+    this.wrapperRef = null;
+  }
+
+  componentDidMount() {
+    document.addEventListener('mousedown', this.handleClickOutside);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('mousedown', this.handleClickOutside);
+  }
+
+  setWrapperRef = (node) => {
+    this.wrapperRef = node;
   };
 
   handleDropdownClick = () => {
@@ -79,10 +93,12 @@ class Dropdown extends Component {
     }));
   };
 
-  handleDropdownBlur = () => {
-    this.setState(() => ({
-      isOpen: false,
-    }));
+  handleClickOutside = (event) => {
+    if (this.wrapperRef && !this.wrapperRef.contains(event.target)) {
+      this.setState(() => ({
+        isOpen: false,
+      }));
+    }
   };
 
   render() {
@@ -104,7 +120,7 @@ class Dropdown extends Component {
     });
 
     return (
-      <div className="dropdown">
+      <div className="dropdown" ref={this.setWrapperRef}>
         <Manager>
           {
             <Reference>
@@ -114,7 +130,6 @@ class Dropdown extends Component {
                     ref,
                     isOpen,
                     openDropdown: this.handleDropdownClick,
-                    onBlur: this.handleDropdownBlur,
                   })
                 )
               }

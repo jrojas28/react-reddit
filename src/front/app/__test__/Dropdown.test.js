@@ -28,19 +28,41 @@ describe('(Component) Dropdown', () => {
     expect(wrapper.contains(<span>Im a Child</span>)).toBe(true);
   });
 
-  it('Should stop rendering its children when blured', () => {
+  it('Should remove its children when clicked twice', () => {
+    const wrapper = mount(
+      <Dropdown>
+        <span>Im a Child</span>
+      </Dropdown>
+    );
+
+    wrapper.find(Button).simulate('click');
+    expect(wrapper.contains(<span>Im a Child</span>)).toBe(true);
+    wrapper.find(Button).simulate('click');
+    expect(wrapper.contains(<span>Im a Child</span>)).toBe(false);
+  });
+
+  it('Should close when another element is clicked', () => {
+    const map = {};
+    document.addEventListener = jest.fn((event, cb) => {
+      map[event] = cb;
+    });
     const wrapper = mount(
       <div>
+        <div id="external-div" onClick={jest.fn()} role="none">
+          Im Outside!
+        </div>
         <Dropdown>
           <span>Im a Child</span>
         </Dropdown>
       </div>
     );
-
+    const dropdownInstance = wrapper.find(Dropdown).instance();
     wrapper.find(Button).simulate('click');
-    expect(wrapper.contains(<span>Im a Child</span>)).toBe(true);
-    wrapper.find(Button).simulate('blur');
-    expect(wrapper.contains(<span>Im a Child</span>)).toBe(false);
+    expect(dropdownInstance.state.isOpen).toBe(true);
+    map.mousedown({
+      target: wrapper.find('#external-div').instance(),
+    });
+    expect(dropdownInstance.state.isOpen).toBe(false);
   });
 
   it('Should render custom classes', () => {
@@ -82,14 +104,12 @@ describe('(Component) Dropdown', () => {
           activePlacement,
           isOpen,
           openDropdown,
-          onBlur,
         }) => (
           <div>
             <input
               id="cb"
               type="checkbox"
               onClick={openDropdown}
-              onBlur={onBlur}
               data-placement={activePlacement}
               ref={ref}
             />
