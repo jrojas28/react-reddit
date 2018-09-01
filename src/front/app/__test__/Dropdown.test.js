@@ -28,7 +28,7 @@ describe('(Component) Dropdown', () => {
     expect(wrapper.contains(<span>Im a Child</span>)).toBe(true);
   });
 
-  it('Should remove its children when clicked twice', () => {
+  it('Should remove its children when the toggler is clicked twice (if Closed initially)', () => {
     const wrapper = mount(
       <Dropdown>
         <span>Im a Child</span>
@@ -39,6 +39,20 @@ describe('(Component) Dropdown', () => {
     expect(wrapper.contains(<span>Im a Child</span>)).toBe(true);
     wrapper.find(Button).simulate('click');
     expect(wrapper.contains(<span>Im a Child</span>)).toBe(false);
+  });
+
+  it('Should add its children when the toggler is clicked twice (if Open initially)', () => {
+    const wrapper = mount(
+      <Dropdown>
+        <span>Im a Child</span>
+      </Dropdown>
+    );
+
+    wrapper.find(Button).simulate('click');
+    wrapper.find(Button).simulate('click');
+    expect(wrapper.contains(<span>Im a Child</span>)).toBe(false);
+    wrapper.find(Button).simulate('click');
+    expect(wrapper.contains(<span>Im a Child</span>)).toBe(true);
   });
 
   it('Should close when another element is clicked', () => {
