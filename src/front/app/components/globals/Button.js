@@ -24,6 +24,7 @@ class Button extends Component {
       PropTypes.node,
       PropTypes.instanceOf(Component),
     ]).isRequired,
+    innerRef: PropTypes.func,
     className: PropTypes.string,
     href: PropTypes.string,
     to: PropTypes.string,
@@ -31,6 +32,7 @@ class Button extends Component {
 
   static defaultProps = {
     buttonType: 'primary',
+    inputRef: () => {},
   };
 
   render() {
@@ -38,6 +40,7 @@ class Button extends Component {
       buttonType,
       className,
       children,
+      inputRef,
       href,
       to,
       ...props
@@ -51,7 +54,7 @@ class Button extends Component {
 
     if (href) {
       return (
-        <a href={href} className={btnClasses} {...props}>
+        <a ref={inputRef} href={href} className={btnClasses} {...props}>
           {children}
         </a>
       );
@@ -59,14 +62,14 @@ class Button extends Component {
 
     if (to) {
       return (
-        <Link to={to} className={btnClasses} {...props}>
+        <Link ref={inputRef} to={to} className={btnClasses} {...props}>
           {children}
         </Link>
       );
     }
 
     return (
-      <button type="button" className={btnClasses} {...props}>
+      <button ref={inputRef} type="button" className={btnClasses} {...props}>
         {children}
       </button>
     );
