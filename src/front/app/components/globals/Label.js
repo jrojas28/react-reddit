@@ -4,7 +4,11 @@ import classNames from 'classnames';
 
 class Label extends Component {
   static propTypes = {
-    children: PropTypes.element.isRequired,
+    children: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.node,
+      PropTypes.instanceOf(Component),
+    ]).isRequired,
     className: PropTypes.string,
     htmlFor: PropTypes.string.isRequired,
   };
@@ -18,7 +22,7 @@ class Label extends Component {
     } = this.props;
 
     const labelClasses = classNames({
-      'form-control-label': true,
+      'col-form-label': true,
       [className]: !!className,
     });
 
