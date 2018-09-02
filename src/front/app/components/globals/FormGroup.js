@@ -40,8 +40,8 @@ class FormGroup extends Component {
       PropTypes.instanceOf(Component),
     ]),
     className: PropTypes.string,
-    inputClasses: PropTypes.string,
-    labelClasses: PropTypes.string,
+    inputClass: PropTypes.string,
+    labelClass: PropTypes.string,
     selectChildren: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.node,
@@ -60,8 +60,8 @@ class FormGroup extends Component {
       inputType,
       children,
       className,
-      inputClasses,
-      labelClasses,
+      inputClass,
+      labelClass,
       selectChildren,
       ...props
     } = this.props;
@@ -73,10 +73,10 @@ class FormGroup extends Component {
 
     return (
       <div className={groupClasses}>
-        <Label className={labelClasses} htmlFor={id}>
+        <Label className={labelClass} htmlFor={id}>
           {label}
         </Label>
-        <Input className={inputClasses} id={id} type={inputType} {...props}>
+        <Input className={inputClass} id={id} type={inputType} {...props}>
           {selectChildren}
         </Input>
         {children}
