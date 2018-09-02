@@ -6,6 +6,7 @@ import { expect } from 'chai';
 import testLib from '../lib/test.lib';
 import gqlClient from '../lib/gqlClient.lib';
 import { queryAllUsers, querySingleUser } from '../queries/users';
+import { createUserMutation } from '../mutations/users';
 
 // init:
 testLib();
@@ -45,6 +46,104 @@ describe('User end-points', () => {
       });
 
       expect(user.id).to.equal(1);
+    });
+  });
+
+  describe('Mutation Create User', () => {
+    it('creates user when given proper input', async () => {
+      const { data: { data: { createUser: user } } } = await gqlClient.query(createUserMutation, {
+        variables: {
+          input: {
+            username: 'lrojas',
+            name: 'Luis',
+            email: 'lrojas94@gmail.com',
+            password: 'a',
+            passwordConfirm: 'a',
+          },
+        },
+      });
+
+      expect(user.name).to.equal('Luis');
+      expect(user.username).to.equal('lrojas');
+      expect(user.email).to.equal('lrojas94@gmail.com');
+    });
+
+    it('throws an error when passwords do not match', async () => {
+      try {
+        await gqlClient.query(createUserMutation, {
+          variables: {
+            input: {
+              username: 'lrojas',
+              name: 'Luis',
+              email: 'lrojas94@gmail.com',
+              password: 'a',
+              passwordConfirm: 'a',
+            },
+          },
+        });
+      } catch (error) {
+        expect(error.message).to.equal('passwords do not match');
+      }
+    });
+
+    it('throws an error when username is already taken', async () => {
+      try {
+        await gqlClient.query(createUserMutation, {
+          variables: {
+            input: {
+              username: 'lrojas',
+              name: 'Luis',
+              email: 'lrojas94@gmail.com',
+              password: 'a',
+              passwordConfirm: 'a',
+            },
+          },
+        });
+
+        await gqlClient.query(createUserMutation, {
+          variables: {
+            input: {
+              username: 'lrojas',
+              name: 'Luis',
+              email: 'lrojas942@gmail.com',
+              password: 'a',
+              passwordConfirm: 'a',
+            },
+          },
+        });
+      } catch (error) {
+        expect(error.message).to.equal('username is already taken');
+      }
+    });
+
+    it('throws an error when email is already taken', async () => {
+      try {
+        await gqlClient.query(createUserMutation, {
+          variables: {
+            input: {
+              username: 'lrojas',
+              name: 'Luis',
+              email: 'lrojas94@gmail.com',
+              password: 'a',
+              passwordConfirm: 'a',
+            },
+          },
+        });
+
+        await gqlClient.query(createUserMutation, {
+          variables: {
+            input: {
+              username: 'lrojas2',
+              name: 'Luis',
+              email: 'lrojas94@gmail.com',
+              password: 'a',
+              passwordConfirm: 'a',
+            },
+          },
+        });
+      } catch (error) {
+        expect(error.message).to.equal('username is already taken');
+      }
     });
   });
 });

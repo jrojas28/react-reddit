@@ -4,6 +4,7 @@
 import { expect } from 'chai';
 
 import { generateUser, generateUserBase } from '../../util/user';
+import { clear } from '../../util/db';
 
 describe('(util) user.js Utility', () => {
   describe('(util) generateUser', () => {
@@ -17,11 +18,11 @@ describe('(util) user.js Utility', () => {
 
     it('accepts base data to override whatever is generated', () => {
       const generatedUser = generateUser({
-        id: 'my-id',
         random: 'custom-data',
+        name: 'Luis',
       });
 
-      expect(generatedUser.id).to.equal('my-id');
+      expect(generatedUser.name).to.equal('Luis');
       expect(generatedUser).to.haveOwnProperty('random');
       expect(generatedUser.random).to.equal('custom-data');
     });
@@ -29,6 +30,7 @@ describe('(util) user.js Utility', () => {
 
   describe('(util) generateUserBase', () => {
     it('generates a list of users with IDs going from 1 to limit', () => {
+      clear();
       const list = generateUserBase(100);
 
       for (let i = 1; i <= 100; i += 1) {

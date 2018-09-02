@@ -2,6 +2,7 @@
  * @file User util
  */
 import faker from 'faker';
+import { getIdForTable } from './db';
 
 /**
  * Generates a user with its attributes using faker.
@@ -10,11 +11,12 @@ import faker from 'faker';
  */
 export const generateUser = (baseData) => {
   return {
-    id: faker.random.uuid(),
     name: faker.name.findName(),
     email: faker.internet.email(),
     username: faker.internet.userName(),
     ...baseData,
+    // Make sure ID is not overwritten
+    id: getIdForTable('users'),
   };
 };
 
@@ -26,7 +28,7 @@ export const generateUserBase = (limit = 100) => {
   const userBase = [];
 
   for (let i = 1; i <= limit; i += 1) {
-    userBase.push(generateUser({ id: i }));
+    userBase.push(generateUser());
   }
 
   return userBase;

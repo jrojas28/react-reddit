@@ -7,6 +7,9 @@ import { UserType } from './types';
 import Database from '../../../util/db';
 import { getSliceArgs, getSlicedList } from '../../../util/gql';
 
+/**
+ * Query to get a single user.
+ */
 export const SingleUserQuery = {
   name: 'User',
   type: UserType,
@@ -23,6 +26,9 @@ export const SingleUserQuery = {
   },
 };
 
+/**
+ * Query to get the list of users out of the database.
+ */
 export const ListUserQuery = {
   name: 'Users',
   type: new GraphQLList(UserType),
