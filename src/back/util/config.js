@@ -19,5 +19,5 @@ export const frontEndConfig = () => {
  * Checks if current environment is dev.
  */
 export const isDev = () => {
-  return process.env.NODE_ENV === 'dev';
+  return process.env.NODE_ENV !== 'production';
 };

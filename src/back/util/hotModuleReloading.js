@@ -11,7 +11,7 @@ import { isDev } from './config';
 const clientCompiler = webpack(clientWebpackConfig);
 
 export default (app) => {
-  // Only do thi on dev
+  // Only do this on dev
   if (isDev()) {
     return;
   }

@@ -26,7 +26,7 @@ const withListUsers = graphql(Users, {
   }) => ({
     loading,
     users,
-    // Serves just so you remembe you can use ownProps here.
+    // Serves just so you remember you can use ownProps here.
     propFromOwnProps: ownProps.something,
   }),
 });
