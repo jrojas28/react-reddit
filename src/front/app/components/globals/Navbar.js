@@ -20,11 +20,7 @@ class Navbar extends Component {
     colorScheme: PropTypes.oneOf(colorSchemes),
     useToggler: PropTypes.bool,
     toggler: PropTypes.func,
-    brand: PropTypes.oneOfType([
-      PropTypes.node,
-      PropTypes.instanceOf(Component),
-      PropTypes.func,
-    ]),
+    brand: PropTypes.func,
   };
 
   static defaultProps = {
