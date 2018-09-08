@@ -24,6 +24,7 @@ html {
 @import "bootstrap-variables";
 
 @import "mixins/bootstrap-breakpoints";
+@import "mixins/bootstrap-background-variant";
 @import "mixins/bootstrap-grid-framework";
 @import "mixins/bootstrap-hover";
 @import "mixins/bootstrap-text-emphasis";
@@ -39,6 +40,7 @@ html {
 @import "mixins/bootstrap-nav-divider";
 @import "mixins/bootstrap-caret";
 
+@import "utilities/bootstrap-background";
 @import "utilities/bootstrap-display";
 @import "utilities/bootstrap-flex";
 @import "utilities/bootstrap-text";
@@ -46,8 +48,10 @@ html {
 @import "utilities/bootstrap-spacing";
 @import "utilities/bootstrap-position";
 
+@import "bootstrap-transitions";
 @import "bootstrap-forms";
 @import "bootstrap-buttons";
 @import "bootstrap-button-group";
 @import "bootstrap-dropdown";
+@import "bootstrap-navbar";
 @import "bootstrap-base-grid";
